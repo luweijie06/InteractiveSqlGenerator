@@ -1,0 +1,40 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>com.luweijie.dev.gear</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>InteractiveSqlGeneratorAction</name>
+    ````````
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="1397100450@qq.com">DevGear</vendor>
+
+    <description><![CDATA[
+   Select a class by placing the cursor on it.
+   Allow the user to search and choose a target class.
+   Automatically create a new instance of the target class using the source class's getter methods to retrieve values, and then call the target class's setter methods to set those values.
+   Allow the user to customize the names of both the target class and the source class.
+]]></description>
+
+    <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.java</depends>
+
+
+
+
+    <!-- Extension points defined by the plugin.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <extensions defaultExtensionNs="com.intellij">
+
+    </extensions>
+    <actions>
+        <action id="Interactive Sql Generator" class="com.dev.gear.InteractiveSqlGeneratorAction"
+                text="Interactive Sql Generator" description="Interactive Sql Generator">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+
+            <!-- 这里配置快捷键 -->
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift C"/>
+        </action>
+    </actions>
+</idea-plugin>
