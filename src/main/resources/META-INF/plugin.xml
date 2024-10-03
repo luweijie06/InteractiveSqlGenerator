@@ -1,21 +1,48 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
     <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
-    <id>com.luweijie.dev.gear</id>
+    <id>com.luweijie.dev.gear.InteractiveSqlGenerator</id>
 
     <!-- Public plugin name should be written in Title Case.
          Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>InteractiveSqlGeneratorAction</name>
+    <name>InteractiveSqlGenerator</name>
     ````````
     <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
     <vendor email="1397100450@qq.com">DevGear</vendor>
 
     <description><![CDATA[
-   Select a class by placing the cursor on it.
-   Allow the user to search and choose a target class.
-   Automatically create a new instance of the target class using the source class's getter methods to retrieve values, and then call the target class's setter methods to set those values.
-   Allow the user to customize the names of both the target class and the source class.
-]]></description>
+<h1>Interactive SQL Generator</h1>
+
+<p>Simplify your database operations with the Interactive SQL Generator plugin for IntelliJ IDEA. This powerful tool allows you to effortlessly generate SQL  and MyBatis/MyBatis-Plus code for your Java projects.</p>
+
+<h2>Key Features:</h2>
+
+<ul>
+    <li><strong>Interactive UI</strong>: Easily select fields, conditions, and mappings through a user-friendly interface.</li>
+    <li><strong>Multiple SQL Types</strong>: Generate SELECT, INSERT, UPDATE, and DELETE  with just a few clicks.</li>
+    <li><strong>ORM Support</strong>: Choose between MyBatis and MyBatis-Plus for your preferred Object-Relational Mapping.</li>
+    <li><strong>Custom Conditions</strong>: Set specific conditions for each field in your WHERE clauses.</li>
+    <li><strong>Database Entity Mapping</strong>: Map your Java classes to database entities for accurate SQL generation.</li>
+    <li><strong>Clipboard Integration</strong>: Copy generated SQL or Java code directly to your clipboard for quick use.</li>
+</ul>
+
+<p>Whether you're working on a new project or maintaining legacy code, the Interactive SQL Generator streamlines your database interaction development process, saving you time and reducing errors.</p>
+
+<h2>Usage Instructions:</h2>
+
+<ol>
+    <li><strong>Activation</strong>: Right-click in your Java file or use the Tools menu to activate the Interactive SQL Generator.</li>
+    <li><strong>Class Selection</strong>: Choose your Java class and corresponding database entity class when prompted.</li>
+    <li><strong>SQL Type and ORM</strong>: Select the type of SQL operation (SELECT, INSERT, UPDATE, DELETE) and your preferred ORM (MyBatis or MyBatis-Plus).</li>
+    <li><strong>Field Selection</strong>: In the interactive table, choose which fields to include in your query.</li>
+    <li><strong>Condition Setting</strong>: For each selected field, specify the condition (e.g., =, >, LIKE) and the connection type (AND/OR).</li>
+    <li><strong>Generate</strong>: Click "OK" to generate your SQL or Java code.</li>
+    <li><strong>Review and Copy</strong>: Review the generated code in the results window. Use the "Copy to Clipboard" button to easily paste it into your project.</li>
+    <li><strong>Iterate</strong>: If needed, use the "Back" button to adjust your selections and regenerate the code.</li>
+</ol>
+
+<p>Get started today and experience the power of effortless SQL generation!</p>
+    ]]></description>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.java</depends>
@@ -34,7 +61,7 @@
             <add-to-group group-id="GenerateGroup" anchor="last"/>
 
             <!-- 这里配置快捷键 -->
-            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift C"/>
+            <keyboard-shortcut keymap="$default" first-keystroke="ctrl shift L"/>
         </action>
     </actions>
 </idea-plugin>
