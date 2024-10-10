@@ -52,8 +52,9 @@
 
     <!-- Extension points defined by the plugin.
          Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html -->
+    <!-- 注册项目活动 -->
     <extensions defaultExtensionNs="com.intellij">
-
+        <postStartupActivity implementation="com.dev.gear.PluginInitializer"/>
     </extensions>
     <actions>
         <action id="Interactive Sql Generator" class="com.dev.gear.InteractiveSqlGeneratorAction"

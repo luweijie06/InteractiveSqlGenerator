@@ -23,6 +23,9 @@ import java.util.List;
 
 public class InteractiveSqlGeneratorAction extends AnAction {
 
+
+
+
     private Stack<SqlGeneratorState> stateStack = new Stack<>();
     private JDialog currentDialog;
 
