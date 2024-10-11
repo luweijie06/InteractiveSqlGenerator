@@ -2,10 +2,6 @@ package com.dev.gear.util;
 
 import com.dev.gear.type.ConditionType;
 import com.dev.gear.type.ConnectionType;
-import com.dev.gear.type.OrmType;
-import com.dev.gear.type.SqlType;
-import com.intellij.ui.components.JBScrollPane;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
