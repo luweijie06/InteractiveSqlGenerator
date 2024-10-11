@@ -42,41 +42,8 @@ public class UIHelper {
         table.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JComboBox<>(databaseFieldNames)));
     }
 
-    public static JPanel createButtonPanel(JButton... buttons) {
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        for (JButton button : buttons) {
-            buttonPanel.add(button);
-        }
-        return buttonPanel;
-    }
 
-    public static JScrollPane createScrollPane(Component view) {
-        return new JBScrollPane(view);
-    }
 
-    public static JTextArea createTextArea(String text, boolean editable) {
-        JTextArea textArea = new JTextArea(text);
-        textArea.setEditable(editable);
-        return textArea;
-    }
-
-    public static JComboBox<SqlType> createSqlTypeComboBox() {
-        return new JComboBox<>(SqlType.values());
-    }
-
-    public static JComboBox<OrmType> createOrmTypeComboBox() {
-        return new JComboBox<>(OrmType.values());
-    }
-
-    public static JPanel createTopPanel(JComboBox<SqlType> sqlTypeCombo, JComboBox<OrmType> ormCombo, JButton chooseClassesButton) {
-        JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        topPanel.add(new JLabel("SQL Type:"));
-        topPanel.add(sqlTypeCombo);
-        topPanel.add(new JLabel("ORM:"));
-        topPanel.add(ormCombo);
-        topPanel.add(chooseClassesButton);
-        return topPanel;
-    }
 
     // Private constructor to prevent instantiation
     private UIHelper() {
