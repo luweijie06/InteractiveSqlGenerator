@@ -13,14 +13,14 @@
     <description><![CDATA[
 <h1>Interactive SQL Generator</h1>
 
-<p>Simplify your database operations with the Interactive SQL Generator plugin for IntelliJ IDEA. This powerful tool allows you to effortlessly generate SQL  and MyBatis/MyBatis-Plus code for your Java projects.</p>
+<p>Simplify your database operations with the Interactive SQL Generator plugin for IntelliJ IDEA. This powerful tool allows you to effortlessly generate SQL  and MyBatis/MyBatis-Plus/JPA code for your Java projects.</p>
 
 <h2>Key Features:</h2>
 
 <ul>
     <li><strong>Interactive UI</strong>: Easily select fields, conditions, and mappings through a user-friendly interface.</li>
     <li><strong>Multiple SQL Types</strong>: Generate SELECT, INSERT, UPDATE, and DELETE  with just a few clicks.</li>
-    <li><strong>ORM Support</strong>: Choose between MyBatis and MyBatis-Plus for your preferred Object-Relational Mapping.</li>
+    <li><strong>ORM Support</strong>: Choose between MyBatis and MyBatis-Plus and jpa for your preferred Object-Relational Mapping.</li>
     <li><strong>Custom Conditions</strong>: Set specific conditions for each field in your WHERE clauses.</li>
     <li><strong>Database Entity Mapping</strong>: Map your Java classes to database entities for accurate SQL generation.</li>
     <li><strong>Clipboard Integration</strong>: Copy generated SQL or Java code directly to your clipboard for quick use.</li>
@@ -33,7 +33,7 @@
 <ol>
     <li><strong>Activation</strong>: Right-click in your Java file or use the Tools menu to activate the Interactive SQL Generator.</li>
     <li><strong>Class Selection</strong>: Choose your Java class and corresponding database entity class when prompted.</li>
-    <li><strong>SQL Type and ORM</strong>: Select the type of SQL operation (SELECT, INSERT, UPDATE, DELETE) and your preferred ORM (MyBatis or MyBatis-Plus).</li>
+    <li><strong>SQL Type and ORM</strong>: Select the type of SQL operation (SELECT, INSERT, UPDATE, DELETE) and your preferred ORM (MyBatis or MyBatis-Plus or JPA).</li>
     <li><strong>Field Selection</strong>: In the interactive table, choose which fields to include in your query.</li>
     <li><strong>Condition Setting</strong>: For each selected field, specify the condition (e.g., =, >, LIKE) and the connection type (AND/OR).</li>
     <li><strong>Generate</strong>: Click "OK" to generate your SQL or Java code.</li>
