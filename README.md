@@ -85,6 +85,10 @@ public List<User> selectUser(UserDTO entity) {
 4. 代码生成
     - 生成规范的Java代码
     - 保持代码格式和样式一致
+      
+## 系统要求
+
+- IntelliJ IDEA 2023.1 或更高版本   
 
 ## 参与贡献
 
