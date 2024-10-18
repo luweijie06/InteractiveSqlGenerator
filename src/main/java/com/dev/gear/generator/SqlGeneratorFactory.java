@@ -10,6 +10,8 @@ public class SqlGeneratorFactory {
                 return new MyBatisSqlGenerator();
             case MYBATIS_PLUS:
                 return new MyBatisPlusSqlGenerator();
+            case JPA:
+                return new JpaSqlGenerator();
             default:
                 throw new IllegalArgumentException("Unsupported ORM type: " + ormType);
         }

@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
+import java.util.Arrays;
 
 public class UIHelper {
 
@@ -33,12 +34,17 @@ public class UIHelper {
     }
 
     public static void setupTableRenderers(JTable table, String[] databaseFieldNames) {
-        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(new JComboBox<>(ConditionType.values())));
+        table.getColumnModel().getColumn(3).setCellEditor(new DefaultCellEditor(createConditionComboBox()));
         table.getColumnModel().getColumn(4).setCellEditor(new DefaultCellEditor(new JComboBox<>(ConnectionType.values())));
         table.getColumnModel().getColumn(5).setCellEditor(new DefaultCellEditor(new JComboBox<>(databaseFieldNames)));
     }
 
-
+    private static JComboBox<String> createConditionComboBox() {
+        String[] conditionSymbols = Arrays.stream(ConditionType.values())
+                .map(ConditionType::getSymbol)
+                .toArray(String[]::new);
+        return new JComboBox<>(conditionSymbols);
+    }
 
 
     // Private constructor to prevent instantiation

@@ -4,7 +4,6 @@ import com.dev.gear.FieldWithCondition;
 import com.dev.gear.type.SqlType;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiField;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -60,7 +59,7 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
         return method.toString();
     }
 
-    private String generateUpdateMethod(String methodName, PsiClass selectedClass, PsiClass databaseEntityClass, 
+    private String generateUpdateMethod(String methodName, PsiClass selectedClass, PsiClass databaseEntityClass,
                                         Set<String> databaseFieldNames, List<FieldWithCondition> selectedFields) {
         StringBuilder method = new StringBuilder();
         method.append("boolean ").append(methodName).append("(").append(selectedClass.getName()).append(" entity) {\n");
@@ -69,7 +68,7 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
         method.append("    }\n");
         method.append(generateFieldValidations(selectedFields, SqlType.UPDATE));
         method.append("    return this.lambdaUpdate()\n");
-        
+
         for (PsiField field : selectedClass.getAllFields()) {
             String fieldName = field.getName();
             String typeName = field.getType().getPresentableText();
@@ -77,12 +76,12 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
                 method.append("        .set(");
                 method.append(generateSetCondition(fieldName, typeName));
                 method.append(", ")
-                      .append(databaseEntityClass.getName()).append("::get").append(capitalize(fieldName))
-                      .append(", entity.get").append(capitalize(fieldName)).append("())\n");
+                        .append(databaseEntityClass.getName()).append("::get").append(capitalize(fieldName))
+                        .append(", entity.get").append(capitalize(fieldName)).append("())\n");
             }
         }
         method.append(generateMybatisPlusWhereClause(selectedFields, databaseEntityClass));
-        method.append("        .update();\n");
+        method.append("        .update(new ").append(databaseEntityClass.getName()).append("());\n");
         method.append("}");
         return method.toString();
     }
@@ -136,12 +135,16 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
     private String generateFieldValidation(FieldWithCondition fwc) {
         String fieldName = fwc.getField().getName();
         String typeName = fwc.getField().getType().getPresentableText();
-        StringBuilder validation = new StringBuilder("    if (entity.get").append(capitalize(fieldName)).append("() == null");
+        StringBuilder validation = new StringBuilder("    if (");
+        
         if (typeName.equals("String")) {
-            validation.append(" || entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            validation.append("StringUtils.isEmpty(entity.get").append(capitalize(fieldName)).append("())");
         } else if (typeName.contains("List") || typeName.contains("Set") || typeName.contains("Collection")) {
-            validation.append(" || entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            validation.append("CollectionUtils.isEmpty(entity.get").append(capitalize(fieldName)).append("())");
+        } else {
+            validation.append("entity.get").append(capitalize(fieldName)).append("() == null");
         }
+        
         validation.append(") {\n");
         validation.append("        throw new IllegalArgumentException(\"")
                 .append(fieldName).append(" must not be null or empty\");\n");
@@ -153,13 +156,15 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
         String fieldName = fwc.getField().getName();
         String typeName = fwc.getField().getType().getPresentableText();
         StringBuilder fieldCheck = new StringBuilder();
-        fieldCheck.append("(entity.get").append(capitalize(fieldName)).append("() == null");
+        
         if (typeName.equals("String")) {
-            fieldCheck.append(" || entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            fieldCheck.append("StringUtils.isEmpty(entity.get").append(capitalize(fieldName)).append("())");
         } else if (typeName.contains("List") || typeName.contains("Set") || typeName.contains("Collection")) {
-            fieldCheck.append(" || entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            fieldCheck.append("CollectionUtils.isEmpty(entity.get").append(capitalize(fieldName)).append("())");
+        } else {
+            fieldCheck.append("entity.get").append(capitalize(fieldName)).append("() == null");
         }
-        fieldCheck.append(")");
+        
         return fieldCheck.toString();
     }
 
@@ -189,23 +194,19 @@ public class MyBatisPlusSqlGenerator implements SqlGenerator {
     }
 
     private String generateSetCondition(String fieldName, String typeName) {
-        StringBuilder condition = new StringBuilder("entity.get").append(capitalize(fieldName)).append("() != null");
+        StringBuilder condition = new StringBuilder();
         if (typeName.equals("String")) {
-            condition.append(" && !entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            condition.append("StringUtils.isNotEmpty(entity.get").append(capitalize(fieldName)).append("())");
         } else if (typeName.contains("List") || typeName.contains("Set") || typeName.contains("Collection")) {
-            condition.append(" && !entity.get").append(capitalize(fieldName)).append("().isEmpty()");
+            condition.append("CollectionUtils.isNotEmpty(entity.get").append(capitalize(fieldName)).append("())");
+        } else {
+            condition.append("entity.get").append(capitalize(fieldName)).append("() != null");
         }
         return condition.toString();
     }
 
     private String generateFieldCondition(String fieldName, String typeName) {
-        StringBuilder condition = new StringBuilder("entity.get").append(capitalize(fieldName)).append("() != null");
-        if (typeName.equals("String")) {
-            condition.append(" && !entity.get").append(capitalize(fieldName)).append("().isEmpty()");
-        } else if (typeName.contains("List") || typeName.contains("Set") || typeName.contains("Collection")) {
-            condition.append(" && !entity.get").append(capitalize(fieldName)).append("().isEmpty()");
-        }
-        return condition.toString();
+        return generateSetCondition(fieldName, typeName);
     }
 
     private String getConditionMethod(String condition) {

@@ -51,6 +51,12 @@ public class InteractiveSqlGeneratorAction extends AnAction {
         JPanel topPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         JComboBox<SqlType> sqlTypeCombo = new JComboBox<>(SqlType.values());
         JComboBox<OrmType> ormCombo = new JComboBox<>(OrmType.values());
+
+        // Add listener to ORM combo box
+        ormCombo.addActionListener(e -> {
+            OrmType selectedOrm = (OrmType) ormCombo.getSelectedItem();
+            updateSqlTypeCombo(sqlTypeCombo, selectedOrm);
+        });
         JButton chooseClassesButton = new JButton("Choose Classes");
         topPanel.add(new JLabel("SQL Type:"));
         topPanel.add(sqlTypeCombo);
@@ -58,7 +64,7 @@ public class InteractiveSqlGeneratorAction extends AnAction {
         topPanel.add(ormCombo);
         topPanel.add(chooseClassesButton);
         panel.add(topPanel, BorderLayout.NORTH);
-
+        panel.setPreferredSize(new Dimension(600, 600));
         // Field selection table
         String[] columnNames = {"Field", "Type", "Where Include", "Condition", "Connection", "Database Entity Field"};
         DefaultTableModel model = new DefaultTableModel(columnNames, 0) {
@@ -117,6 +123,17 @@ public class InteractiveSqlGeneratorAction extends AnAction {
         currentDialog.setVisible(true);
     }
 
+    private void updateSqlTypeCombo(JComboBox<SqlType> sqlTypeCombo, OrmType selectedOrm) {
+        sqlTypeCombo.removeAllItems();
+        if (selectedOrm == OrmType.JPA) {
+            sqlTypeCombo.addItem(SqlType.SELECT);
+            sqlTypeCombo.addItem(SqlType.SELECT_PAGE);
+        } else {
+            for (SqlType sqlType : SqlType.values()) {
+                sqlTypeCombo.addItem(sqlType);
+            }
+        }
+    }
     private List<FieldWithCondition> getSelectedFields(DefaultTableModel model) {
         List<FieldWithCondition> selectedFields = new ArrayList<>();
         for (int i = 0; i < model.getRowCount(); i++) {
